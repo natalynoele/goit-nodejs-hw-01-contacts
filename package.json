@@ -1,0 +1,25 @@
+{
+  "name": "goit-nodejs-hw-01-contacts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/natalynoele/goit-nodejs-hw-01-contacts.git"
+  },
+  "keywords": [],
+  "author": "natalynoele",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/natalynoele/goit-nodejs-hw-01-contacts/issues"
+  },
+  "homepage": "https://github.com/natalynoele/goit-nodejs-hw-01-contacts#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
