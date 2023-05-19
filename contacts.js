@@ -1,21 +1,43 @@
 const fs = require("fs/promises");
 const path = require("path");
 const { nanoid } = require("nanoid");
+
 const contactsPath = path.join(__dirname, "db/contacts.json");
 console.log("contactsPath :>> ", contactsPath);
 
-// TODO: задокументувати кожну функцію
+/**
+ * Get the contacts from the file
+ * @returns {array}
+ */
 async function listContacts() {
-  const data = await fs.readFile(contactsPath);
-  return JSON.parse(data);
+  try {
+    const data = await fs.readFile(contactsPath);
+    return JSON.parse(data);
+  } catch (error) {
+    console.log(`Something went wrong:  ${error.message}`);
+  }
 }
 
+/**
+ * Get contact by ID
+ * @param {string} contactId 
+ * @returns {object || null} 
+ */
 async function getContactById(contactId) {
-  const contacts = await listContacts();
-  const result = contacts.find((contact) => contact.id === contactId);
-  return result || null;
+  try {
+    const contacts = await listContacts();
+    const result = contacts.find((contact) => contact.id === contactId);
+    return result || null;
+  } catch (error) {
+    console.log(`Something went wrong:  ${error.message}`);
+  }
 }
 
+/**
+ * Delete contact by ID
+ * @param {string} contactId 
+ * @returns {object || null} the removed contact
+ */
 async function removeContact(contactId) {
   const contacts = await listContacts();
   const index = contacts.findIndex((contact) => contact.id === contactId);
@@ -27,8 +49,14 @@ async function removeContact(contactId) {
   return result;
 }
 
+/**
+ * Add new contact 
+ * @param {object} data 
+ * @returns {object} new contact
+ */
 async function addContact(data) {
-  const contacts = await listContacts();
+  try {
+     const contacts = await listContacts();
   const newContact = {
     id: nanoid(),
     ...data,
@@ -36,7 +64,12 @@ async function addContact(data) {
   contacts.push(newContact);
   await fs.writeFile(contactsPath, JSON.stringify(contacts));
   return newContact;
+  } catch (error) {
+    console.log(`Something went wrong:  ${error.message}`);
+  }
+ 
 }
+
 module.exports = {
   listContacts,
   getContactById,
